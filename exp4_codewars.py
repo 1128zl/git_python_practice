@@ -1,3 +1,71 @@
+#第五题：
+
+'''
+MORSE_CODE = {'.-': 'A', '-...': 'B', '-.-.': 'C', '-..': 'D', '.': 'E', '..-.': 'F', 
+              '--.': 'G', '....': 'H', '..': 'I', '.---': 'J', '-.-': 'K', '.-..': 'L', 
+              '--': 'M', '-.': 'N', '---': 'O', '.--.': 'P', '--.-': 'Q', '.-.': 'R', 
+              '...': 'S', '-': 'T', '..-': 'U', '...-': 'V', '.--': 'W', '-..-': 'X',
+              '-.--': 'Y', '--..': 'Z', '-----': '0', '.----': '1', '..---': '2', 
+              '...--': '3', '....-': '4', '.....': '5', '-....': '6', '--...': '7', 
+              '---..': '8', '----.': '9', '.-.-.-': '.', '--..--': ',', '..--..': '?', 
+              '.----.': "'", '-.-.--': '!', '-..-.': '/', '-.--.': '(', '-.--.-': ')', 
+              '.-...': '&', '---...': ':', '-.-.-.': ';', '-...-': '=', '.-.-.': '+', 
+              '-....-': '-', '..--.-': '_', '.-..-.': '"', '...-..-': '$', '.--.-.': '@', '...---...': 'SOS'}
+
+def decode_bits(bits):
+    split_bits = []
+    morse_code = []
+
+    last_bit = bits[0]
+    start_index = 0
+
+    for i, bit in enumerate(bits):
+        if bit != last_bit:
+            split_bits.append(bits[start_index:i])
+            start_index = i        
+        last_bit = bit
+        
+    split_bits.append(bits[start_index:])
+    print('split_bits:', split_bits)
+    
+    if '0' in split_bits[0]:
+        del split_bits[0]
+        
+    if '0' in split_bits[-1]:
+        del split_bits[-1]
+    
+    time_unit = len(min(split_bits, key=len))
+    print('time_unit:', time_unit)
+
+    for item in split_bits:
+        if '1' in item and len(item) < time_unit * 3:
+            morse_code.append('.')
+        elif '1' in item and len(item) >= time_unit * 3:
+            morse_code.append('-')
+        elif '0' in item and len(item) < time_unit * 3:
+            morse_code.append('')
+        elif '0' in item and len(item) < time_unit * 7:
+            morse_code.append(' ')
+        elif '0' in item and len(item) >= time_unit * 7:
+            morse_code.append('   ')    
+    
+    print('morse_code:', morse_code)
+    return ''.join(morse_code)
+
+
+def decode_morse(morseCode):
+    words_codes = ''.join(morseCode).split('   ')
+    print('words_codes:', words_codes)
+    
+    letters_codes = [ word.split(' ')  for word in words_codes]
+    letters = [ [MORSE_CODE[code] for code in word if code] for word in letters_codes]
+    return ' '.join([ ''.join(letter) for letter in letters])
+'''
+
+
+
+
+
 #第四题：
 
 '''
